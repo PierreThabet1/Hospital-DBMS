@@ -1,0 +1,244 @@
+insert into specialty values ('S1','Dermatology');
+insert into specialty values ('S2','Psychiatry');
+insert into specialty values ('S3','Oncology');
+insert into specialty values ('S4','Cardiology');
+insert into specialty values ('S5','Urology');
+insert into specialty values ('S6','Pediatrics');
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D1', 'Doctor Karen', '555-1212', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S6'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D2', 'Doctor John', '555-2934', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S2'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D3', 'Doctor Robert', '555-6723', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S6'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D4', 'Doctor David', '555-1745', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S4'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D5', 'Doctor Mary', '555-6565', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S5'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D6', 'Doctor Linda', '555-4889', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S1'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D7', 'Doctor Susan', '555-4581', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S3'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D8', 'Doctor Zeynep', '555-7891', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S4'));
+
+insert into doctor(DoctorID, Name, Phone, SpecialtyNumber)
+values ('D9', 'Doctor Mat', '555-7791', 
+(select SpecialtyNumber from specialty where SpecialtyNumber = 'S1'));
+
+update doctor set Supervisor = 'D1' where DoctorID <> 'D1';
+
+insert into patient values ('P1',(select DoctorID from doctor where DoctorID = 'D2'),
+'Patient Dana', '444-1212', 'P1@email.com', '123 Home St.', '2019-02-01');
+
+insert into patient values ('P2',(select DoctorID from doctor where DoctorID = 'D7'),
+'Patient Harry', '444-2934', 'P2@email.com', '3435 Main St.', '2011-07-13');
+
+insert into patient values ('P3',(select DoctorID from doctor where DoctorID = 'D6'),
+'Patient Karl', '444-6723', 'P3@email.com', '2176 Baker St.', '2009-05-10');
+
+insert into patient values ('P4',(select DoctorID from doctor where DoctorID = 'D2'),
+'Patient Sid', '444-1745', 'P4@email.com', '176 Right St.', '2010-06-20');
+
+insert into patient values ('P5',(select DoctorID from doctor where DoctorID = 'D8'),
+'Patient Marry', '444-6565', 'P5@email.com', '435 Main St.', '2014-05-18');
+
+insert into patient values ('P6',(select DoctorID from doctor where DoctorID = 'D6'),
+'Patient Kim', '444-4889', 'P6@email.com', '34 Home St.', '2018-03-15');
+
+insert into patient values ('P7',(select DoctorID from doctor where DoctorID = 'D4'),
+'Patient Susan', '444-4581', 'P7@email.com', '65 Water St.', '2011-09-07');
+
+insert into patient values ('P8',(select DoctorID from doctor where DoctorID = 'D3'),
+'Patient Sam', '444-7891', 'P8@email.com', '23 Hill Drive', '2010-11-23');
+
+insert into patient values ('P9',(select DoctorID from doctor where DoctorID = 'D5'),
+'Patient Peter', '444-7791', 'P9@email.com', '12 River St.', '2008-02-01');
+
+insert into patient values ('P10',(select DoctorID from doctor where DoctorID = 'D7'),
+'Patient Nick', '123-1212', 'P10@email.com', '335 Bay St.', '2011-07-13');
+
+insert into patient values ('P11',(select DoctorID from doctor where DoctorID = 'D9'),
+'Patient Kyle', '123-2934', 'P11@email.com', '216 Baker St.', '2016-05-10');
+
+insert into patient values ('P12',(select DoctorID from doctor where DoctorID = 'D9'),
+'Patient Garcia', '123-6723', 'P12@email.com', '176 Right St.', '2010-06-20');
+
+insert into patient values ('P13',(select DoctorID from doctor where DoctorID = 'D4'),
+'Patient Alicia', '123-1745', 'P13@email.com', '823 Left St.', '2015-05-18');
+
+insert into patient values ('P14',(select DoctorID from doctor where DoctorID = 'D4'),
+'Patient Dan', '123-6565', 'P14@email.com', '534 High St.', '2018-03-15');
+
+insert into appointment values ('A1', 
+(select PatientID from patient where PatientID = 'P1'), 
+(select DoctorID from doctor where DoctorID = 'D2'), 
+'2019-07-01', '80', '65', 'Dream to success');
+
+insert into appointment values ('A2', 
+(select PatientID from patient where PatientID = 'P13'), 
+(select DoctorID from doctor where DoctorID = 'D4'), 
+'2019-01-04', '77', '88', 'Good heart rate');
+
+insert into appointment values ('A3', 
+(select PatientID from patient where PatientID = 'P11'), 
+(select DoctorID from doctor where DoctorID = 'D9'), 
+'2019-03-22', '82', '95', 'Many spots');
+
+insert into appointment values ('A4', 
+(select PatientID from patient where PatientID = 'P7'), 
+(select DoctorID from doctor where DoctorID = 'D4'), 
+'2020-02-01', '85', '74', 'Fast heart rate');
+
+insert into appointment values ('A5', 
+(select PatientID from patient where PatientID = 'P9'), 
+(select DoctorID from doctor where DoctorID = 'D5'), 
+'2019-04-13', '75', '56', 'Reports checked');
+
+insert into appointment values ('A6', 
+(select PatientID from patient where PatientID = 'P3'), 
+(select DoctorID from doctor where DoctorID = 'D6'), 
+'2019-11-12', '81', '96', 'Sun light spots');
+
+insert into appointment values ('A7', 
+(select PatientID from patient where PatientID = 'P10'), 
+(select DoctorID from doctor where DoctorID = 'D7'), 
+'2020-01-29', '80', '87', 'Early treatment');
+
+insert into appointment values ('A8', 
+(select PatientID from patient where PatientID = 'P9'), 
+(select DoctorID from doctor where DoctorID = 'D5'), 
+'2019-08-12', '86', '92', 'Much better');
+
+insert into appointment values ('A9', 
+(select PatientID from patient where PatientID = 'P14'), 
+(select DoctorID from doctor where DoctorID = 'D4'), 
+'2019-05-18', '75', '75', 'Good heart rate');
+
+insert into appointment values ('A10', 
+(select PatientID from patient where PatientID = 'P8'), 
+(select DoctorID from doctor where DoctorID = 'D3'), 
+'2019-11-18', '76', '79', 'New teeth');
+
+insert into appointment values ('A11', 
+(select PatientID from patient where PatientID = 'P11'), 
+(select DoctorID from doctor where DoctorID = 'D9'), 
+'2019-06-22', '78', '71', 'Much better');
+
+insert into appointment values ('A12', 
+(select PatientID from patient where PatientID = 'P2'), 
+(select DoctorID from doctor where DoctorID = 'D7'), 
+'2020-02-21', '82', '86', 'Early treatment');
+
+insert into appointment values ('A13', 
+(select PatientID from patient where PatientID = 'P4'), 
+(select DoctorID from doctor where DoctorID = 'D2'), 
+'2019-08-17', '81', '101', 'Bad dreams');
+
+insert into appointment values ('A14', 
+(select PatientID from patient where PatientID = 'P6'), 
+(select DoctorID from doctor where DoctorID = 'D6'), 
+'2019-06-27', '79', '49', 'Sun light spots');
+
+insert into appointment values ('A15', 
+(select PatientID from patient where PatientID = 'P10'), 
+(select DoctorID from doctor where DoctorID = 'D7'), 
+'2020-07-29', '80', '83', 'Early treatment');
+
+insert into appointment values ('A16', 
+(select PatientID from patient where PatientID = 'P7'), 
+(select DoctorID from doctor where DoctorID = 'D4'), 
+'2020-08-01', '78', '79', 'Good heart rate');
+
+insert into allergy values ('AL1', 'Drug');
+insert into allergy values ('AL2', 'Food');
+insert into allergy values ('AL3', 'Skin');
+insert into allergy values ('AL4', 'Asthma');
+insert into allergy values ('AL5', 'Rhinitis');
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL4'), 
+(select PatientID from patient where PatientID = 'P1'));
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL2'), 
+(select PatientID from patient where PatientID = 'P13'));
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL3'), 
+(select PatientID from patient where PatientID = 'P11'));
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL4'), 
+(select PatientID from patient where PatientID = 'P7'));
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL5'), 
+(select PatientID from patient where PatientID = 'P9'));
+
+insert into patientallergy values (
+(select AllergyID from allergy where AllergyID = 'AL1'), 
+(select PatientID from patient where PatientID = 'P3'));
+
+insert into medicine values ('M1', 'Ativan');
+insert into medicine values ('M2', 'Ibuprofen');
+insert into medicine values ('M3', 'Omeprazole');
+insert into medicine values ('M4', 'Metoprolol');
+insert into medicine values ('M5', 'Azithromycin');
+insert into medicine values ('M6', 'Codeine');
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A15'),
+(select MedicineID from medicine where MedicineID = 'M1'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A2'),
+(select MedicineID from medicine where MedicineID = 'M6'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A8'),
+(select MedicineID from medicine where MedicineID = 'M3'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A6'),
+(select MedicineID from medicine where MedicineID = 'M3'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A15'),
+(select MedicineID from medicine where MedicineID = 'M2'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A10'),
+(select MedicineID from medicine where MedicineID = 'M6'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A10'),
+(select MedicineID from medicine where MedicineID = 'M2'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A4'),
+(select MedicineID from medicine where MedicineID = 'M5'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A3'),
+(select MedicineID from medicine where MedicineID = 'M5'));
+
+insert into patientmedicine values (
+(select AppointmentID from appointment where AppointmentID = 'A1'),
+(select MedicineID from medicine where MedicineID = 'M2'));
+

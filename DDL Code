@@ -1,0 +1,61 @@
+create table Specialty (
+SpecialtyNumber integer auto_increment primary key,
+SpecialtyName varchar(15)
+);
+
+create table Doctor (
+DoctorID integer auto_increment primary key,
+Name varchar(20) not null,
+Phone char(10) not null,
+SpecialtyNumber integer not null,
+foreign key (SpecialtyNumber) references Specialty(SpecialtyNumber) on update cascade
+);
+
+create table Patient (
+PatientID integer auto_increment primary key,
+Name varchar(20) not null,
+Phone char(10) not null,
+Email varchar(30),
+AddedDate date not null,
+Address varchar(50) not null,
+DoctorID integer,
+foreign key (DoctorID) references Doctor(DoctorID) on update cascade
+);
+
+create table Appointment (
+AppointmentID integer auto_increment primary key,
+DoctorID integer,
+PatientID integer,
+AppointmentDate date not null,
+BloodPressure integer not null,
+Weight integer not null,
+TreatmentNotes varchar(100) not null,
+foreign key (DoctorID) references Doctor(DoctorID) on update cascade,
+foreign key (PatientID) references Patient(PatientID) on update cascade
+);
+
+create table Allergy (
+AllergyID integer auto_increment primary key,
+AllergyName varchar(20) not null
+);
+
+create table PatientAllergy (
+AllergyID integer,
+PatientID integer,
+primary key (AllergyID, PatientID),
+foreign key (AllergyID) references Allergy(AllergyID) on update cascade,
+foreign key (PatientID) references Patient(PatientID) on update cascade
+);
+
+create table Medicine (
+MedicineID integer auto_increment primary key,
+MedicineName varchar(20) not null
+);
+
+create table PatientMedicine (
+AppointmentID integer,
+MedicineID integer,
+primary key (AppointmentID, MedicineID),
+foreign key (AppointmentID) references Appointment(AppointmentID) on update cascade,
+foreign key (MedicineID) references Medicine(MedicineID) on update cascade
+);

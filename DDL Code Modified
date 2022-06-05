@@ -1,0 +1,64 @@
+create table Specialty (
+SpecialtyNumber char(2) primary key,
+SpecialtyName varchar(15)
+);
+
+create table Doctor (
+DoctorID char(2) primary key,
+Name varchar(50) not null,
+Phone varchar(10) not null,
+SpecialtyNumber char(2) not null,
+Supervisor char(2),
+foreign key (SpecialtyNumber) references Specialty(SpecialtyNumber) on update cascade,
+constraint Supv foreign key (Supervisor) references Doctor(DoctorID) on update cascade
+);
+
+create table Patient (
+PatientID varchar(3) primary key,
+DoctorID char(2),
+Name varchar(50) not null,
+Phone varchar(10) not null,
+Email varchar(50),
+Address varchar(50) not null,
+AddedDate date not null,
+foreign key (DoctorID) references Doctor(DoctorID) on update cascade
+);
+
+create table Appointment (
+AppointmentID varchar(3) primary key,
+PatientID varchar(3),
+DoctorID char(2),
+AppointmentDate date not null,
+BloodPressure integer not null,
+Weight integer not null,
+TreatmentNotes varchar(100) not null,
+foreign key (DoctorID) references Doctor(DoctorID) on update cascade,
+foreign key (PatientID) references Patient(PatientID) on update cascade
+);
+
+create table Allergy (
+AllergyID char(3) primary key,
+AllergyName varchar(30) not null
+);
+
+create table PatientAllergy (
+AllergyID char(3),
+PatientID varchar(3),
+primary key (AllergyID, PatientID),
+foreign key (AllergyID) references Allergy(AllergyID) on update cascade,
+foreign key (PatientID) references Patient(PatientID) on update cascade
+);
+
+create table Medicine (
+MedicineID char(2) primary key,
+MedicineName varchar(30) not null
+);
+
+create table PatientMedicine (
+AppointmentID varchar(3),
+MedicineID char(2),
+primary key (AppointmentID, MedicineID),
+foreign key (AppointmentID) references Appointment(AppointmentID) on update cascade,
+foreign key (MedicineID) references Medicine(MedicineID) on update cascade
+);
+
